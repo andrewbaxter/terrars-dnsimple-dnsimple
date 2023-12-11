@@ -1,0 +1,26 @@
+[package]
+name = "terrars-dnsimple-dnsimple"
+edition = "2021"
+version = "0.1.0"
+description = "Pre-generated Terrars Dnsimple bindings"
+readme = "readme.md"
+license = "ISC"
+repository = "https://github.com/andrewbaxter/terrars-dnsimple-dnsimple"
+
+[dependencies]
+serde = "1.0.151"
+serde_json = "1.0.91"
+terrars = "0.1.5"
+
+[features]
+contact = []
+data_certificate = []
+data_registrant_change_check = []
+data_zone = []
+domain = []
+domain_delegation = []
+ds_record = []
+email_forward = []
+lets_encrypt_certificate = []
+registered_domain = []
+zone_record = []
