@@ -1,58 +1,62 @@
 use serde::Serialize;
-use std::cell::RefCell;
-use std::rc::Rc;
-use terrars::*;
+use terrars::{
+    Referable as _,
+    Resource_ as _,
+    Ref as _,
+};
 use super::provider::ProviderDnsimple;
 
 #[derive(Serialize)]
 struct RegisteredDomainData {
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    depends_on: Vec<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    provider: Option<String>,
-    #[serde(skip_serializing_if = "SerdeSkipDefault::is_default")]
-    lifecycle: ResourceLifecycle,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    for_each: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    auto_renew_enabled: Option<PrimField<bool>>,
-    contact_id: PrimField<f64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    dnssec_enabled: Option<PrimField<bool>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    extended_attributes: Option<RecField<PrimField<String>>>,
-    name: PrimField<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    premium_price: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    timeouts: Option<RegisteredDomainTimeouts>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    transfer_lock_enabled: Option<PrimField<bool>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    whois_privacy_enabled: Option<PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    depends_on: std::vec::Vec<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    provider: std::option::Option<std::string::String>,
+    #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
+    lifecycle: terrars::ResourceLifecycle,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    for_each: std::option::Option<std::string::String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    provisioner: std::vec::Vec<terrars::Provisioner>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    auto_renew_enabled: std::option::Option<terrars::PrimField<bool>>,
+    contact_id: terrars::PrimField<f64>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    dnssec_enabled: std::option::Option<terrars::PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    extended_attributes: std::option::Option<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    name: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    premium_price: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    timeouts: std::option::Option<RegisteredDomainTimeouts>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    transfer_lock_enabled: std::option::Option<terrars::PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    whois_privacy_enabled: std::option::Option<terrars::PrimField<bool>>,
 }
 
 struct RegisteredDomain_ {
-    shared: StackShared,
-    tf_id: String,
-    data: RefCell<RegisteredDomainData>,
+    shared: terrars::StackShared,
+    tf_id: std::string::String,
+    data: std::cell::RefCell<RegisteredDomainData>,
 }
 
 #[derive(Clone)]
-pub struct RegisteredDomain(Rc<RegisteredDomain_>);
+pub struct RegisteredDomain(std::rc::Rc<RegisteredDomain_>);
 
 impl RegisteredDomain {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.0.shared
     }
 
-    pub fn depends_on(self, dep: &impl Referable) -> Self {
+    pub fn depends_on(self, dep: &impl terrars::Referable) -> Self {
         self.0.data.borrow_mut().depends_on.push(dep.extract_ref());
         self
     }
 
     pub fn set_provider(self, provider: &ProviderDnsimple) -> Self {
-        self.0.data.borrow_mut().provider = Some(provider.provider_ref());
+        self.0.data.borrow_mut().provider = std::option::Option::Some(provider.provider_ref());
         self
     }
 
@@ -67,104 +71,141 @@ impl RegisteredDomain {
     }
 
     pub fn ignore_changes_to_all(self) -> Self {
-        self.0.data.borrow_mut().lifecycle.ignore_changes = Some(IgnoreChanges::All(IgnoreChangesAll::All));
+        self.0.data.borrow_mut().lifecycle.ignore_changes =
+            std::option::Option::Some(terrars::IgnoreChanges::All(terrars::IgnoreChangesAll::All));
         self
     }
 
-    pub fn ignore_changes_to_attr(self, attr: impl ToString) -> Self {
+    pub fn ignore_changes_to_attr(self, attr: impl std::string::ToString) -> Self {
         {
             let mut d = self.0.data.borrow_mut();
             if match &mut d.lifecycle.ignore_changes {
-                Some(i) => match i {
-                    IgnoreChanges::All(_) => {
+                std::option::Option::Some(i) => match i {
+                    terrars::IgnoreChanges::All(_) => {
                         true
                     },
-                    IgnoreChanges::Refs(r) => {
+                    terrars::IgnoreChanges::Refs(r) => {
                         r.push(attr.to_string());
                         false
                     },
                 },
-                None => true,
+                std::option::Option::None => true,
             } {
-                d.lifecycle.ignore_changes = Some(IgnoreChanges::Refs(vec![attr.to_string()]));
+                d.lifecycle.ignore_changes =
+                    std::option::Option::Some(terrars::IgnoreChanges::Refs(vec![attr.to_string()]));
             }
         }
         self
     }
 
-    pub fn replace_triggered_by_resource(self, r: &impl Resource) -> Self {
+    pub fn replace_triggered_by_resource(self, r: &impl terrars::Resource) -> Self {
         self.0.data.borrow_mut().lifecycle.replace_triggered_by.push(r.extract_ref());
         self
     }
 
-    pub fn replace_triggered_by_attr(self, attr: impl ToString) -> Self {
+    pub fn replace_triggered_by_attr(self, attr: impl std::string::ToString) -> Self {
         self.0.data.borrow_mut().lifecycle.replace_triggered_by.push(attr.to_string());
         self
     }
 
-    #[doc= "Set the field `auto_renew_enabled`.\n"]
-    pub fn set_auto_renew_enabled(self, v: impl Into<PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().auto_renew_enabled = Some(v.into());
+    #[doc = r" Add a provisioner (ex: `local-exec`, `remote-exec`, `file`) to this resource."]
+    #[doc = r" Provisioners run in the order they're added."]
+    pub fn add_provisioner(self, v: impl std::convert::Into<terrars::Provisioner>) -> Self {
+        self.0.data.borrow_mut().provisioner.push(v.into());
         self
     }
 
-    #[doc= "Set the field `dnssec_enabled`.\n"]
-    pub fn set_dnssec_enabled(self, v: impl Into<PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().dnssec_enabled = Some(v.into());
+    pub fn add_lifecycle_precondition(
+        self,
+        condition: impl std::convert::Into<terrars::PrimField<bool>>,
+        error_message: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.0.data.borrow_mut().lifecycle.precondition.push(terrars::LifecycleCondition {
+            condition: condition.into(),
+            error_message: error_message.into(),
+        });
         self
     }
 
-    #[doc= "Set the field `extended_attributes`.\n"]
-    pub fn set_extended_attributes(self, v: impl Into<RecField<PrimField<String>>>) -> Self {
-        self.0.data.borrow_mut().extended_attributes = Some(v.into());
+    pub fn add_lifecycle_postcondition(
+        self,
+        condition: impl std::convert::Into<terrars::PrimField<bool>>,
+        error_message: impl std::convert::Into<terrars::PrimField<std::string::String>>,
+    ) -> Self {
+        self.0.data.borrow_mut().lifecycle.postcondition.push(terrars::LifecycleCondition {
+            condition: condition.into(),
+            error_message: error_message.into(),
+        });
         self
     }
 
-    #[doc= "Set the field `premium_price`.\n"]
-    pub fn set_premium_price(self, v: impl Into<PrimField<String>>) -> Self {
-        self.0.data.borrow_mut().premium_price = Some(v.into());
+    #[doc = "Set the field `auto_renew_enabled`.\n"]
+    pub fn set_auto_renew_enabled(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().auto_renew_enabled = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `timeouts`.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
-    pub fn set_timeouts(self, v: impl Into<RegisteredDomainTimeouts>) -> Self {
-        self.0.data.borrow_mut().timeouts = Some(v.into());
+    #[doc = "Set the field `dnssec_enabled`.\n"]
+    pub fn set_dnssec_enabled(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().dnssec_enabled = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `transfer_lock_enabled`.\n"]
-    pub fn set_transfer_lock_enabled(self, v: impl Into<PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().transfer_lock_enabled = Some(v.into());
+    #[doc = "Set the field `extended_attributes`.\n"]
+    pub fn set_extended_attributes(
+        self,
+        v: impl std::convert::Into<terrars::RecField<terrars::PrimField<std::string::String>>>,
+    ) -> Self {
+        self.0.data.borrow_mut().extended_attributes = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `whois_privacy_enabled`.\n"]
-    pub fn set_whois_privacy_enabled(self, v: impl Into<PrimField<bool>>) -> Self {
-        self.0.data.borrow_mut().whois_privacy_enabled = Some(v.into());
+    #[doc = "Set the field `premium_price`.\n"]
+    pub fn set_premium_price(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().premium_price = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Get a reference to the value of field `account_id` after provisioning.\n"]
-    pub fn account_id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
+    #[doc = "Set the field `timeouts`.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
+    pub fn set_timeouts(self, v: impl std::convert::Into<RegisteredDomainTimeouts>) -> Self {
+        self.0.data.borrow_mut().timeouts = std::option::Option::Some(v.into());
+        self
     }
 
-    #[doc= "Get a reference to the value of field `auto_renew_enabled` after provisioning.\n"]
-    pub fn auto_renew_enabled(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.auto_renew_enabled", self.extract_ref()))
+    #[doc = "Set the field `transfer_lock_enabled`.\n"]
+    pub fn set_transfer_lock_enabled(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().transfer_lock_enabled = std::option::Option::Some(v.into());
+        self
     }
 
-    #[doc= "Get a reference to the value of field `contact_id` after provisioning.\n"]
-    pub fn contact_id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.contact_id", self.extract_ref()))
+    #[doc = "Set the field `whois_privacy_enabled`.\n"]
+    pub fn set_whois_privacy_enabled(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().whois_privacy_enabled = std::option::Option::Some(v.into());
+        self
     }
 
-    #[doc= "Get a reference to the value of field `dnssec_enabled` after provisioning.\n"]
-    pub fn dnssec_enabled(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.dnssec_enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\n"]
+    pub fn account_id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `domain_registration` after provisioning.\nThe domain registration details."]
+    #[doc = "Get a reference to the value of field `auto_renew_enabled` after provisioning.\n"]
+    pub fn auto_renew_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.auto_renew_enabled", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `contact_id` after provisioning.\n"]
+    pub fn contact_id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.contact_id", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `dnssec_enabled` after provisioning.\n"]
+    pub fn dnssec_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.dnssec_enabled", self.extract_ref()))
+    }
+
+    #[doc =
+        "Get a reference to the value of field `domain_registration` after provisioning.\nThe domain registration details."]
     pub fn domain_registration(&self) -> RegisteredDomainDomainRegistrationRef {
         RegisteredDomainDomainRegistrationRef::new(
             self.shared().clone(),
@@ -172,32 +213,33 @@ impl RegisteredDomain {
         )
     }
 
-    #[doc= "Get a reference to the value of field `expires_at` after provisioning.\n"]
-    pub fn expires_at(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.expires_at", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `expires_at` after provisioning.\n"]
+    pub fn expires_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_at", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `extended_attributes` after provisioning.\n"]
-    pub fn extended_attributes(&self) -> RecRef<PrimExpr<String>> {
-        RecRef::new(self.shared().clone(), format!("{}.extended_attributes", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `extended_attributes` after provisioning.\n"]
+    pub fn extended_attributes(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.extended_attributes", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `name` after provisioning.\n"]
-    pub fn name(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `name` after provisioning.\n"]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `premium_price` after provisioning.\n"]
-    pub fn premium_price(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.premium_price", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `premium_price` after provisioning.\n"]
+    pub fn premium_price(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.premium_price", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `registrant_change` after provisioning.\nThe registrant change details."]
+    #[doc =
+        "Get a reference to the value of field `registrant_change` after provisioning.\nThe registrant change details."]
     pub fn registrant_change(&self) -> RegisteredDomainRegistrantChangeRef {
         RegisteredDomainRegistrantChangeRef::new(
             self.shared().clone(),
@@ -205,55 +247,56 @@ impl RegisteredDomain {
         )
     }
 
-    #[doc= "Get a reference to the value of field `state` after provisioning.\n"]
-    pub fn state(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.state", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `state` after provisioning.\n"]
+    pub fn state(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.state", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `timeouts` after provisioning.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
+    #[doc =
+        "Get a reference to the value of field `timeouts` after provisioning.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
     pub fn timeouts(&self) -> RegisteredDomainTimeoutsRef {
         RegisteredDomainTimeoutsRef::new(self.shared().clone(), format!("{}.timeouts", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `transfer_lock_enabled` after provisioning.\n"]
-    pub fn transfer_lock_enabled(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.transfer_lock_enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `transfer_lock_enabled` after provisioning.\n"]
+    pub fn transfer_lock_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.transfer_lock_enabled", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `unicode_name` after provisioning.\n"]
-    pub fn unicode_name(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.unicode_name", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `unicode_name` after provisioning.\n"]
+    pub fn unicode_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.unicode_name", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `whois_privacy_enabled` after provisioning.\n"]
-    pub fn whois_privacy_enabled(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.whois_privacy_enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `whois_privacy_enabled` after provisioning.\n"]
+    pub fn whois_privacy_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.whois_privacy_enabled", self.extract_ref()))
     }
 }
 
-impl Referable for RegisteredDomain {
-    fn extract_ref(&self) -> String {
+impl terrars::Referable for RegisteredDomain {
+    fn extract_ref(&self) -> std::string::String {
         format!("{}.{}", self.0.extract_resource_type(), self.0.extract_tf_id())
     }
 }
 
-impl Resource for RegisteredDomain { }
+impl terrars::Resource for RegisteredDomain { }
 
-impl ToListMappable for RegisteredDomain {
-    type O = ListRef<RegisteredDomainRef>;
+impl terrars::ToListMappable for RegisteredDomain {
+    type O = terrars::ListRef<RegisteredDomainRef>;
 
-    fn do_map(self, base: String) -> Self::O {
-        self.0.data.borrow_mut().for_each = Some(format!("${{{}}}", base));
-        ListRef::new(self.0.shared.clone(), self.extract_ref())
+    fn do_map(self, base: std::string::String) -> Self::O {
+        self.0.data.borrow_mut().for_each = std::option::Option::Some(format!("${{{}}}", base));
+        terrars::ListRef::new(self.0.shared.clone(), self.extract_ref())
     }
 }
 
-impl Resource_ for RegisteredDomain_ {
-    fn extract_resource_type(&self) -> String {
+impl terrars::Resource_ for RegisteredDomain_ {
+    fn extract_resource_type(&self) -> std::string::String {
         "dnsimple_registered_domain".into()
     }
 
-    fn extract_tf_id(&self) -> String {
+    fn extract_tf_id(&self) -> std::string::String {
         self.tf_id.clone()
     }
 
@@ -263,23 +306,24 @@ impl Resource_ for RegisteredDomain_ {
 }
 
 pub struct BuildRegisteredDomain {
-    pub tf_id: String,
-    #[doc= ""]
-    pub contact_id: PrimField<f64>,
-    #[doc= ""]
-    pub name: PrimField<String>,
+    pub tf_id: std::string::String,
+    #[doc = ""]
+    pub contact_id: terrars::PrimField<f64>,
+    #[doc = ""]
+    pub name: terrars::PrimField<std::string::String>,
 }
 
 impl BuildRegisteredDomain {
-    pub fn build(self, stack: &mut Stack) -> RegisteredDomain {
-        let out = RegisteredDomain(Rc::new(RegisteredDomain_ {
+    pub fn build(self, stack: &mut terrars::Stack) -> RegisteredDomain {
+        let out = RegisteredDomain(std::rc::Rc::new(RegisteredDomain_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: RefCell::new(RegisteredDomainData {
+            data: std::cell::RefCell::new(RegisteredDomainData {
                 depends_on: core::default::Default::default(),
-                provider: None,
+                provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
-                for_each: None,
+                for_each: std::option::Option::None,
+                provisioner: core::default::Default::default(),
                 auto_renew_enabled: core::default::Default::default(),
                 contact_id: self.contact_id,
                 dnssec_enabled: core::default::Default::default(),
@@ -297,12 +341,12 @@ impl BuildRegisteredDomain {
 }
 
 pub struct RegisteredDomainRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for RegisteredDomainRef {
-    fn new(shared: StackShared, base: String) -> Self {
+impl terrars::Ref for RegisteredDomainRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> Self {
         Self {
             shared: shared,
             base: base,
@@ -311,35 +355,36 @@ impl Ref for RegisteredDomainRef {
 }
 
 impl RegisteredDomainRef {
-    fn extract_ref(&self) -> String {
+    fn extract_ref(&self) -> std::string::String {
         self.base.clone()
     }
 
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `account_id` after provisioning.\n"]
-    pub fn account_id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `account_id` after provisioning.\n"]
+    pub fn account_id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `auto_renew_enabled` after provisioning.\n"]
-    pub fn auto_renew_enabled(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.auto_renew_enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `auto_renew_enabled` after provisioning.\n"]
+    pub fn auto_renew_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.auto_renew_enabled", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `contact_id` after provisioning.\n"]
-    pub fn contact_id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.contact_id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `contact_id` after provisioning.\n"]
+    pub fn contact_id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.contact_id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `dnssec_enabled` after provisioning.\n"]
-    pub fn dnssec_enabled(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.dnssec_enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `dnssec_enabled` after provisioning.\n"]
+    pub fn dnssec_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.dnssec_enabled", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `domain_registration` after provisioning.\nThe domain registration details."]
+    #[doc =
+        "Get a reference to the value of field `domain_registration` after provisioning.\nThe domain registration details."]
     pub fn domain_registration(&self) -> RegisteredDomainDomainRegistrationRef {
         RegisteredDomainDomainRegistrationRef::new(
             self.shared().clone(),
@@ -347,32 +392,33 @@ impl RegisteredDomainRef {
         )
     }
 
-    #[doc= "Get a reference to the value of field `expires_at` after provisioning.\n"]
-    pub fn expires_at(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.expires_at", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `expires_at` after provisioning.\n"]
+    pub fn expires_at(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.expires_at", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `extended_attributes` after provisioning.\n"]
-    pub fn extended_attributes(&self) -> RecRef<PrimExpr<String>> {
-        RecRef::new(self.shared().clone(), format!("{}.extended_attributes", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `extended_attributes` after provisioning.\n"]
+    pub fn extended_attributes(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.extended_attributes", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `name` after provisioning.\n"]
-    pub fn name(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `name` after provisioning.\n"]
+    pub fn name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `premium_price` after provisioning.\n"]
-    pub fn premium_price(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.premium_price", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `premium_price` after provisioning.\n"]
+    pub fn premium_price(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.premium_price", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `registrant_change` after provisioning.\nThe registrant change details."]
+    #[doc =
+        "Get a reference to the value of field `registrant_change` after provisioning.\nThe registrant change details."]
     pub fn registrant_change(&self) -> RegisteredDomainRegistrantChangeRef {
         RegisteredDomainRegistrantChangeRef::new(
             self.shared().clone(),
@@ -380,51 +426,52 @@ impl RegisteredDomainRef {
         )
     }
 
-    #[doc= "Get a reference to the value of field `state` after provisioning.\n"]
-    pub fn state(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.state", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `state` after provisioning.\n"]
+    pub fn state(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.state", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `timeouts` after provisioning.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
+    #[doc =
+        "Get a reference to the value of field `timeouts` after provisioning.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
     pub fn timeouts(&self) -> RegisteredDomainTimeoutsRef {
         RegisteredDomainTimeoutsRef::new(self.shared().clone(), format!("{}.timeouts", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `transfer_lock_enabled` after provisioning.\n"]
-    pub fn transfer_lock_enabled(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.transfer_lock_enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `transfer_lock_enabled` after provisioning.\n"]
+    pub fn transfer_lock_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.transfer_lock_enabled", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `unicode_name` after provisioning.\n"]
-    pub fn unicode_name(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.unicode_name", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `unicode_name` after provisioning.\n"]
+    pub fn unicode_name(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.unicode_name", self.extract_ref()))
     }
 
-    #[doc= "Get a reference to the value of field `whois_privacy_enabled` after provisioning.\n"]
-    pub fn whois_privacy_enabled(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.whois_privacy_enabled", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `whois_privacy_enabled` after provisioning.\n"]
+    pub fn whois_privacy_enabled(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.whois_privacy_enabled", self.extract_ref()))
     }
 }
 
 #[derive(Serialize)]
 pub struct RegisteredDomainDomainRegistration {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    state: Option<PrimField<String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    state: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 impl RegisteredDomainDomainRegistration {
-    #[doc= "Set the field `state`.\n"]
-    pub fn set_state(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.state = Some(v.into());
+    #[doc = "Set the field `state`.\n"]
+    pub fn set_state(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.state = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl ToListMappable for RegisteredDomainDomainRegistration {
-    type O = BlockAssignable<RegisteredDomainDomainRegistration>;
+impl terrars::ToListMappable for RegisteredDomainDomainRegistration {
+    type O = terrars::BlockAssignable<RegisteredDomainDomainRegistration>;
 
-    fn do_map(self, base: String) -> Self::O {
-        BlockAssignable::Dynamic(DynamicBlock {
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
             for_each: format!("${{{}}}", base),
             iterator: "each".into(),
             content: self,
@@ -441,12 +488,12 @@ impl BuildRegisteredDomainDomainRegistration {
 }
 
 pub struct RegisteredDomainDomainRegistrationRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for RegisteredDomainDomainRegistrationRef {
-    fn new(shared: StackShared, base: String) -> RegisteredDomainDomainRegistrationRef {
+impl terrars::Ref for RegisteredDomainDomainRegistrationRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomainDomainRegistrationRef {
         RegisteredDomainDomainRegistrationRef {
             shared: shared,
             base: base.to_string(),
@@ -455,45 +502,45 @@ impl Ref for RegisteredDomainDomainRegistrationRef {
 }
 
 impl RegisteredDomainDomainRegistrationRef {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `period` after provisioning.\n"]
-    pub fn period(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.period", self.base))
+    #[doc = "Get a reference to the value of field `period` after provisioning.\n"]
+    pub fn period(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.period", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `state` after provisioning.\n"]
-    pub fn state(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.state", self.base))
+    #[doc = "Get a reference to the value of field `state` after provisioning.\n"]
+    pub fn state(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.state", self.base))
     }
 }
 
 #[derive(Serialize)]
 pub struct RegisteredDomainRegistrantChange {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    state: Option<PrimField<String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    state: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 impl RegisteredDomainRegistrantChange {
-    #[doc= "Set the field `state`.\nState of the registrant change"]
-    pub fn set_state(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.state = Some(v.into());
+    #[doc = "Set the field `state`.\nState of the registrant change"]
+    pub fn set_state(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.state = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl ToListMappable for RegisteredDomainRegistrantChange {
-    type O = BlockAssignable<RegisteredDomainRegistrantChange>;
+impl terrars::ToListMappable for RegisteredDomainRegistrantChange {
+    type O = terrars::BlockAssignable<RegisteredDomainRegistrantChange>;
 
-    fn do_map(self, base: String) -> Self::O {
-        BlockAssignable::Dynamic(DynamicBlock {
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
             for_each: format!("${{{}}}", base),
             iterator: "each".into(),
             content: self,
@@ -510,12 +557,12 @@ impl BuildRegisteredDomainRegistrantChange {
 }
 
 pub struct RegisteredDomainRegistrantChangeRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for RegisteredDomainRegistrantChangeRef {
-    fn new(shared: StackShared, base: String) -> RegisteredDomainRegistrantChangeRef {
+impl terrars::Ref for RegisteredDomainRegistrantChangeRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomainRegistrantChangeRef {
         RegisteredDomainRegistrantChangeRef {
             shared: shared,
             base: base.to_string(),
@@ -524,86 +571,92 @@ impl Ref for RegisteredDomainRegistrantChangeRef {
 }
 
 impl RegisteredDomainRegistrantChangeRef {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `account_id` after provisioning.\nDNSimple Account ID to which the registrant change belongs to"]
-    pub fn account_id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.base))
+    #[doc =
+        "Get a reference to the value of field `account_id` after provisioning.\nDNSimple Account ID to which the registrant change belongs to"]
+    pub fn account_id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `contact_id` after provisioning.\nDNSimple contact ID for which the registrant change is being performed"]
-    pub fn contact_id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.contact_id", self.base))
+    #[doc =
+        "Get a reference to the value of field `contact_id` after provisioning.\nDNSimple contact ID for which the registrant change is being performed"]
+    pub fn contact_id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.contact_id", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `domain_id` after provisioning.\nDNSimple domain ID for which the registrant change is being performed"]
-    pub fn domain_id(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.domain_id", self.base))
+    #[doc =
+        "Get a reference to the value of field `domain_id` after provisioning.\nDNSimple domain ID for which the registrant change is being performed"]
+    pub fn domain_id(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.domain_id", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `extended_attributes` after provisioning.\nExtended attributes for the registrant change"]
-    pub fn extended_attributes(&self) -> RecRef<PrimExpr<String>> {
-        RecRef::new(self.shared().clone(), format!("{}.extended_attributes", self.base))
+    #[doc =
+        "Get a reference to the value of field `extended_attributes` after provisioning.\nExtended attributes for the registrant change"]
+    pub fn extended_attributes(&self) -> terrars::RecRef<terrars::PrimExpr<std::string::String>> {
+        terrars::RecRef::new(self.shared().clone(), format!("{}.extended_attributes", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `id` after provisioning.\n"]
-    pub fn id(&self) -> PrimExpr<f64> {
-        PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
+    #[doc = "Get a reference to the value of field `id` after provisioning.\n"]
+    pub fn id(&self) -> terrars::PrimExpr<f64> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `irt_lock_lifted_by` after provisioning.\nDate when the registrant change lock was lifted for the domain"]
-    pub fn irt_lock_lifted_by(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.irt_lock_lifted_by", self.base))
+    #[doc =
+        "Get a reference to the value of field `irt_lock_lifted_by` after provisioning.\nDate when the registrant change lock was lifted for the domain"]
+    pub fn irt_lock_lifted_by(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.irt_lock_lifted_by", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `registry_owner_change` after provisioning.\nTrue if the registrant change will result in a registry owner change"]
-    pub fn registry_owner_change(&self) -> PrimExpr<bool> {
-        PrimExpr::new(self.shared().clone(), format!("{}.registry_owner_change", self.base))
+    #[doc =
+        "Get a reference to the value of field `registry_owner_change` after provisioning.\nTrue if the registrant change will result in a registry owner change"]
+    pub fn registry_owner_change(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.registry_owner_change", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `state` after provisioning.\nState of the registrant change"]
-    pub fn state(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.state", self.base))
+    #[doc = "Get a reference to the value of field `state` after provisioning.\nState of the registrant change"]
+    pub fn state(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.state", self.base))
     }
 }
 
 #[derive(Serialize)]
 pub struct RegisteredDomainTimeouts {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    create: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    delete: Option<PrimField<String>>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    update: Option<PrimField<String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    create: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    delete: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    update: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
 impl RegisteredDomainTimeouts {
-    #[doc= "Set the field `create`.\nCreate timeout."]
-    pub fn set_create(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.create = Some(v.into());
+    #[doc = "Set the field `create`.\nCreate timeout."]
+    pub fn set_create(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.create = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `delete`.\nDelete timeout (currently unused)."]
-    pub fn set_delete(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.delete = Some(v.into());
+    #[doc = "Set the field `delete`.\nDelete timeout (currently unused)."]
+    pub fn set_delete(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.delete = std::option::Option::Some(v.into());
         self
     }
 
-    #[doc= "Set the field `update`.\nUpdate timeout."]
-    pub fn set_update(mut self, v: impl Into<PrimField<String>>) -> Self {
-        self.update = Some(v.into());
+    #[doc = "Set the field `update`.\nUpdate timeout."]
+    pub fn set_update(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.update = std::option::Option::Some(v.into());
         self
     }
 }
 
-impl ToListMappable for RegisteredDomainTimeouts {
-    type O = BlockAssignable<RegisteredDomainTimeouts>;
+impl terrars::ToListMappable for RegisteredDomainTimeouts {
+    type O = terrars::BlockAssignable<RegisteredDomainTimeouts>;
 
-    fn do_map(self, base: String) -> Self::O {
-        BlockAssignable::Dynamic(DynamicBlock {
+    fn do_map(self, base: std::string::String) -> Self::O {
+        terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
             for_each: format!("${{{}}}", base),
             iterator: "each".into(),
             content: self,
@@ -624,12 +677,12 @@ impl BuildRegisteredDomainTimeouts {
 }
 
 pub struct RegisteredDomainTimeoutsRef {
-    shared: StackShared,
-    base: String,
+    shared: terrars::StackShared,
+    base: std::string::String,
 }
 
-impl Ref for RegisteredDomainTimeoutsRef {
-    fn new(shared: StackShared, base: String) -> RegisteredDomainTimeoutsRef {
+impl terrars::Ref for RegisteredDomainTimeoutsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomainTimeoutsRef {
         RegisteredDomainTimeoutsRef {
             shared: shared,
             base: base.to_string(),
@@ -638,22 +691,22 @@ impl Ref for RegisteredDomainTimeoutsRef {
 }
 
 impl RegisteredDomainTimeoutsRef {
-    fn shared(&self) -> &StackShared {
+    fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
 
-    #[doc= "Get a reference to the value of field `create` after provisioning.\nCreate timeout."]
-    pub fn create(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.create", self.base))
+    #[doc = "Get a reference to the value of field `create` after provisioning.\nCreate timeout."]
+    pub fn create(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.create", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `delete` after provisioning.\nDelete timeout (currently unused)."]
-    pub fn delete(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.delete", self.base))
+    #[doc = "Get a reference to the value of field `delete` after provisioning.\nDelete timeout (currently unused)."]
+    pub fn delete(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.delete", self.base))
     }
 
-    #[doc= "Get a reference to the value of field `update` after provisioning.\nUpdate timeout."]
-    pub fn update(&self) -> PrimExpr<String> {
-        PrimExpr::new(self.shared().clone(), format!("{}.update", self.base))
+    #[doc = "Get a reference to the value of field `update` after provisioning.\nUpdate timeout."]
+    pub fn update(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.update", self.base))
     }
 }
