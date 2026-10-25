@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderDnsimple;
 
 #[derive(Serialize)]
-struct DomainData {
+struct DomainData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,12 +21,14 @@ struct DomainData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     name: terrars::PrimField<std::string::String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    prevent_delete: std::option::Option<terrars::PrimField<bool>>,
 }
 
 struct Domain_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DomainData>,
+    data: std::cell::RefCell<DomainData_>,
 }
 
 #[derive(Clone)]
@@ -124,6 +128,13 @@ impl Domain {
         self
     }
 
+    #[doc =
+        "Set the field `prevent_delete`.\nWhether to block `terraform destroy` from deleting the domain registration. Defaults to `false`. When set to `true`, destroying this resource fails until it is set back to `false` and applied."]
+    pub fn set_prevent_delete(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().prevent_delete = std::option::Option::Some(v.into());
+        self
+    }
+
     #[doc = "Get a reference to the value of field `account_id` after provisioning.\n"]
     pub fn account_id(&self) -> terrars::PrimExpr<f64> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.account_id", self.extract_ref()))
@@ -144,6 +155,12 @@ impl Domain {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
+    #[doc =
+        "Get a reference to the value of field `prevent_delete` after provisioning.\nWhether to block `terraform destroy` from deleting the domain registration. Defaults to `false`. When set to `true`, destroying this resource fails until it is set back to `false` and applied."]
+    pub fn prevent_delete(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.prevent_delete", self.extract_ref()))
+    }
+
     #[doc = "Get a reference to the value of field `private_whois` after provisioning.\n"]
     pub fn private_whois(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.private_whois", self.extract_ref()))
@@ -157,6 +174,11 @@ impl Domain {
     #[doc = "Get a reference to the value of field `state` after provisioning.\n"]
     pub fn state(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.state", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `trustee` after provisioning.\n"]
+    pub fn trustee(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.trustee", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `unicode_name` after provisioning.\n"]
@@ -207,13 +229,14 @@ impl BuildDomain {
         let out = Domain(std::rc::Rc::new(Domain_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DomainData {
+            data: std::cell::RefCell::new(DomainData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
                 for_each: std::option::Option::None,
                 provisioner: core::default::Default::default(),
                 name: self.name,
+                prevent_delete: core::default::Default::default(),
             }),
         }));
         stack.add_resource(out.0.clone());
@@ -264,6 +287,12 @@ impl DomainRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.name", self.extract_ref()))
     }
 
+    #[doc =
+        "Get a reference to the value of field `prevent_delete` after provisioning.\nWhether to block `terraform destroy` from deleting the domain registration. Defaults to `false`. When set to `true`, destroying this resource fails until it is set back to `false` and applied."]
+    pub fn prevent_delete(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.prevent_delete", self.extract_ref()))
+    }
+
     #[doc = "Get a reference to the value of field `private_whois` after provisioning.\n"]
     pub fn private_whois(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.private_whois", self.extract_ref()))
@@ -277,6 +306,11 @@ impl DomainRef {
     #[doc = "Get a reference to the value of field `state` after provisioning.\n"]
     pub fn state(&self) -> terrars::PrimExpr<std::string::String> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.state", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `trustee` after provisioning.\n"]
+    pub fn trustee(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.trustee", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `unicode_name` after provisioning.\n"]

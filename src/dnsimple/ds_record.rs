@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderDnsimple;
 
 #[derive(Serialize)]
-struct DsRecordData {
+struct DsRecordData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -25,7 +27,7 @@ struct DsRecordData {
     digest_type: std::option::Option<terrars::PrimField<std::string::String>>,
     domain: terrars::PrimField<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    keytag: std::option::Option<terrars::PrimField<std::string::String>>,
+    key_tag: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     public_key: std::option::Option<terrars::PrimField<std::string::String>>,
 }
@@ -33,7 +35,7 @@ struct DsRecordData {
 struct DsRecord_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DsRecordData>,
+    data: std::cell::RefCell<DsRecordData_>,
 }
 
 #[derive(Clone)]
@@ -145,9 +147,9 @@ impl DsRecord {
         self
     }
 
-    #[doc = "Set the field `keytag`.\n"]
-    pub fn set_keytag(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
-        self.0.data.borrow_mut().keytag = std::option::Option::Some(v.into());
+    #[doc = "Set the field `key_tag`.\n"]
+    pub fn set_key_tag(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().key_tag = std::option::Option::Some(v.into());
         self
     }
 
@@ -187,9 +189,9 @@ impl DsRecord {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `keytag` after provisioning.\n"]
-    pub fn keytag(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.keytag", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `key_tag` after provisioning.\n"]
+    pub fn key_tag(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.key_tag", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `public_key` after provisioning.\n"]
@@ -247,7 +249,7 @@ impl BuildDsRecord {
         let out = DsRecord(std::rc::Rc::new(DsRecord_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DsRecordData {
+            data: std::cell::RefCell::new(DsRecordData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -257,7 +259,7 @@ impl BuildDsRecord {
                 digest: core::default::Default::default(),
                 digest_type: core::default::Default::default(),
                 domain: self.domain,
-                keytag: core::default::Default::default(),
+                key_tag: core::default::Default::default(),
                 public_key: core::default::Default::default(),
             }),
         }));
@@ -319,9 +321,9 @@ impl DsRecordRef {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.id", self.extract_ref()))
     }
 
-    #[doc = "Get a reference to the value of field `keytag` after provisioning.\n"]
-    pub fn keytag(&self) -> terrars::PrimExpr<std::string::String> {
-        terrars::PrimExpr::new(self.shared().clone(), format!("{}.keytag", self.extract_ref()))
+    #[doc = "Get a reference to the value of field `key_tag` after provisioning.\n"]
+    pub fn key_tag(&self) -> terrars::PrimExpr<std::string::String> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.key_tag", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `public_key` after provisioning.\n"]

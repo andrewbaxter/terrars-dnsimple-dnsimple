@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderDnsimple;
 
 #[derive(Serialize)]
-struct RegisteredDomainData {
+struct RegisteredDomainData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -29,9 +31,11 @@ struct RegisteredDomainData {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     premium_price: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    timeouts: std::option::Option<RegisteredDomainTimeouts>,
+    timeouts: std::option::Option<RegisteredDomain_Timeouts>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     transfer_lock_enabled: std::option::Option<terrars::PrimField<bool>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    trustee: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     whois_privacy_enabled: std::option::Option<terrars::PrimField<bool>>,
 }
@@ -39,7 +43,7 @@ struct RegisteredDomainData {
 struct RegisteredDomain_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<RegisteredDomainData>,
+    data: std::cell::RefCell<RegisteredDomainData_>,
 }
 
 #[derive(Clone)]
@@ -167,7 +171,7 @@ impl RegisteredDomain {
     }
 
     #[doc = "Set the field `timeouts`.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
-    pub fn set_timeouts(self, v: impl std::convert::Into<RegisteredDomainTimeouts>) -> Self {
+    pub fn set_timeouts(self, v: impl std::convert::Into<RegisteredDomain_Timeouts>) -> Self {
         self.0.data.borrow_mut().timeouts = std::option::Option::Some(v.into());
         self
     }
@@ -175,6 +179,12 @@ impl RegisteredDomain {
     #[doc = "Set the field `transfer_lock_enabled`.\n"]
     pub fn set_transfer_lock_enabled(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
         self.0.data.borrow_mut().transfer_lock_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc = "Set the field `trustee`.\n"]
+    pub fn set_trustee(self, v: impl std::convert::Into<terrars::PrimField<bool>>) -> Self {
+        self.0.data.borrow_mut().trustee = std::option::Option::Some(v.into());
         self
     }
 
@@ -206,8 +216,8 @@ impl RegisteredDomain {
 
     #[doc =
         "Get a reference to the value of field `domain_registration` after provisioning.\nThe domain registration details."]
-    pub fn domain_registration(&self) -> RegisteredDomainDomainRegistrationRef {
-        RegisteredDomainDomainRegistrationRef::new(
+    pub fn domain_registration(&self) -> RegisteredDomain_DomainRegistrationRef {
+        RegisteredDomain_DomainRegistrationRef::new(
             self.shared().clone(),
             format!("{}.domain_registration", self.extract_ref()),
         )
@@ -240,8 +250,8 @@ impl RegisteredDomain {
 
     #[doc =
         "Get a reference to the value of field `registrant_change` after provisioning.\nThe registrant change details."]
-    pub fn registrant_change(&self) -> RegisteredDomainRegistrantChangeRef {
-        RegisteredDomainRegistrantChangeRef::new(
+    pub fn registrant_change(&self) -> RegisteredDomain_RegistrantChangeRef {
+        RegisteredDomain_RegistrantChangeRef::new(
             self.shared().clone(),
             format!("{}.registrant_change", self.extract_ref()),
         )
@@ -254,13 +264,18 @@ impl RegisteredDomain {
 
     #[doc =
         "Get a reference to the value of field `timeouts` after provisioning.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
-    pub fn timeouts(&self) -> RegisteredDomainTimeoutsRef {
-        RegisteredDomainTimeoutsRef::new(self.shared().clone(), format!("{}.timeouts", self.extract_ref()))
+    pub fn timeouts(&self) -> RegisteredDomain_TimeoutsRef {
+        RegisteredDomain_TimeoutsRef::new(self.shared().clone(), format!("{}.timeouts", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `transfer_lock_enabled` after provisioning.\n"]
     pub fn transfer_lock_enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.transfer_lock_enabled", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `trustee` after provisioning.\n"]
+    pub fn trustee(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.trustee", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `unicode_name` after provisioning.\n"]
@@ -318,7 +333,7 @@ impl BuildRegisteredDomain {
         let out = RegisteredDomain(std::rc::Rc::new(RegisteredDomain_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(RegisteredDomainData {
+            data: std::cell::RefCell::new(RegisteredDomainData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -332,6 +347,7 @@ impl BuildRegisteredDomain {
                 premium_price: core::default::Default::default(),
                 timeouts: core::default::Default::default(),
                 transfer_lock_enabled: core::default::Default::default(),
+                trustee: core::default::Default::default(),
                 whois_privacy_enabled: core::default::Default::default(),
             }),
         }));
@@ -385,8 +401,8 @@ impl RegisteredDomainRef {
 
     #[doc =
         "Get a reference to the value of field `domain_registration` after provisioning.\nThe domain registration details."]
-    pub fn domain_registration(&self) -> RegisteredDomainDomainRegistrationRef {
-        RegisteredDomainDomainRegistrationRef::new(
+    pub fn domain_registration(&self) -> RegisteredDomain_DomainRegistrationRef {
+        RegisteredDomain_DomainRegistrationRef::new(
             self.shared().clone(),
             format!("{}.domain_registration", self.extract_ref()),
         )
@@ -419,8 +435,8 @@ impl RegisteredDomainRef {
 
     #[doc =
         "Get a reference to the value of field `registrant_change` after provisioning.\nThe registrant change details."]
-    pub fn registrant_change(&self) -> RegisteredDomainRegistrantChangeRef {
-        RegisteredDomainRegistrantChangeRef::new(
+    pub fn registrant_change(&self) -> RegisteredDomain_RegistrantChangeRef {
+        RegisteredDomain_RegistrantChangeRef::new(
             self.shared().clone(),
             format!("{}.registrant_change", self.extract_ref()),
         )
@@ -433,13 +449,18 @@ impl RegisteredDomainRef {
 
     #[doc =
         "Get a reference to the value of field `timeouts` after provisioning.\nTimeouts for operations, given as a parsable string as in `10m` or `30s`."]
-    pub fn timeouts(&self) -> RegisteredDomainTimeoutsRef {
-        RegisteredDomainTimeoutsRef::new(self.shared().clone(), format!("{}.timeouts", self.extract_ref()))
+    pub fn timeouts(&self) -> RegisteredDomain_TimeoutsRef {
+        RegisteredDomain_TimeoutsRef::new(self.shared().clone(), format!("{}.timeouts", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `transfer_lock_enabled` after provisioning.\n"]
     pub fn transfer_lock_enabled(&self) -> terrars::PrimExpr<bool> {
         terrars::PrimExpr::new(self.shared().clone(), format!("{}.transfer_lock_enabled", self.extract_ref()))
+    }
+
+    #[doc = "Get a reference to the value of field `trustee` after provisioning.\n"]
+    pub fn trustee(&self) -> terrars::PrimExpr<bool> {
+        terrars::PrimExpr::new(self.shared().clone(), format!("{}.trustee", self.extract_ref()))
     }
 
     #[doc = "Get a reference to the value of field `unicode_name` after provisioning.\n"]
@@ -454,12 +475,12 @@ impl RegisteredDomainRef {
 }
 
 #[derive(Serialize)]
-pub struct RegisteredDomainDomainRegistration {
+pub struct RegisteredDomain_DomainRegistration {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     state: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl RegisteredDomainDomainRegistration {
+impl RegisteredDomain_DomainRegistration {
     #[doc = "Set the field `state`.\n"]
     pub fn set_state(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.state = std::option::Option::Some(v.into());
@@ -467,8 +488,8 @@ impl RegisteredDomainDomainRegistration {
     }
 }
 
-impl terrars::ToListMappable for RegisteredDomainDomainRegistration {
-    type O = terrars::BlockAssignable<RegisteredDomainDomainRegistration>;
+impl terrars::ToListMappable for RegisteredDomain_DomainRegistration {
+    type O = terrars::BlockAssignable<RegisteredDomain_DomainRegistration>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -479,29 +500,31 @@ impl terrars::ToListMappable for RegisteredDomainDomainRegistration {
     }
 }
 
-pub struct BuildRegisteredDomainDomainRegistration {}
+pub struct BuildRegisteredDomain_DomainRegistration {}
 
-impl BuildRegisteredDomainDomainRegistration {
-    pub fn build(self) -> RegisteredDomainDomainRegistration {
-        RegisteredDomainDomainRegistration { state: core::default::Default::default() }
+impl BuildRegisteredDomain_DomainRegistration {
+    pub fn build(self) -> RegisteredDomain_DomainRegistration {
+        RegisteredDomain_DomainRegistration { state: core::default::Default::default() }
     }
 }
 
-pub struct RegisteredDomainDomainRegistrationRef {
+#[allow(dead_code)]
+pub struct RegisteredDomain_DomainRegistrationRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RegisteredDomainDomainRegistrationRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomainDomainRegistrationRef {
-        RegisteredDomainDomainRegistrationRef {
+impl terrars::Ref for RegisteredDomain_DomainRegistrationRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomain_DomainRegistrationRef {
+        RegisteredDomain_DomainRegistrationRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RegisteredDomainDomainRegistrationRef {
+impl RegisteredDomain_DomainRegistrationRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -523,12 +546,12 @@ impl RegisteredDomainDomainRegistrationRef {
 }
 
 #[derive(Serialize)]
-pub struct RegisteredDomainRegistrantChange {
+pub struct RegisteredDomain_RegistrantChange {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     state: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl RegisteredDomainRegistrantChange {
+impl RegisteredDomain_RegistrantChange {
     #[doc = "Set the field `state`.\nState of the registrant change"]
     pub fn set_state(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.state = std::option::Option::Some(v.into());
@@ -536,8 +559,8 @@ impl RegisteredDomainRegistrantChange {
     }
 }
 
-impl terrars::ToListMappable for RegisteredDomainRegistrantChange {
-    type O = terrars::BlockAssignable<RegisteredDomainRegistrantChange>;
+impl terrars::ToListMappable for RegisteredDomain_RegistrantChange {
+    type O = terrars::BlockAssignable<RegisteredDomain_RegistrantChange>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -548,29 +571,31 @@ impl terrars::ToListMappable for RegisteredDomainRegistrantChange {
     }
 }
 
-pub struct BuildRegisteredDomainRegistrantChange {}
+pub struct BuildRegisteredDomain_RegistrantChange {}
 
-impl BuildRegisteredDomainRegistrantChange {
-    pub fn build(self) -> RegisteredDomainRegistrantChange {
-        RegisteredDomainRegistrantChange { state: core::default::Default::default() }
+impl BuildRegisteredDomain_RegistrantChange {
+    pub fn build(self) -> RegisteredDomain_RegistrantChange {
+        RegisteredDomain_RegistrantChange { state: core::default::Default::default() }
     }
 }
 
-pub struct RegisteredDomainRegistrantChangeRef {
+#[allow(dead_code)]
+pub struct RegisteredDomain_RegistrantChangeRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RegisteredDomainRegistrantChangeRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomainRegistrantChangeRef {
-        RegisteredDomainRegistrantChangeRef {
+impl terrars::Ref for RegisteredDomain_RegistrantChangeRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomain_RegistrantChangeRef {
+        RegisteredDomain_RegistrantChangeRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RegisteredDomainRegistrantChangeRef {
+impl RegisteredDomain_RegistrantChangeRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -623,7 +648,7 @@ impl RegisteredDomainRegistrantChangeRef {
 }
 
 #[derive(Serialize)]
-pub struct RegisteredDomainTimeouts {
+pub struct RegisteredDomain_Timeouts {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     create: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -632,7 +657,7 @@ pub struct RegisteredDomainTimeouts {
     update: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl RegisteredDomainTimeouts {
+impl RegisteredDomain_Timeouts {
     #[doc = "Set the field `create`.\nCreate timeout."]
     pub fn set_create(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.create = std::option::Option::Some(v.into());
@@ -652,8 +677,8 @@ impl RegisteredDomainTimeouts {
     }
 }
 
-impl terrars::ToListMappable for RegisteredDomainTimeouts {
-    type O = terrars::BlockAssignable<RegisteredDomainTimeouts>;
+impl terrars::ToListMappable for RegisteredDomain_Timeouts {
+    type O = terrars::BlockAssignable<RegisteredDomain_Timeouts>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -664,11 +689,11 @@ impl terrars::ToListMappable for RegisteredDomainTimeouts {
     }
 }
 
-pub struct BuildRegisteredDomainTimeouts {}
+pub struct BuildRegisteredDomain_Timeouts {}
 
-impl BuildRegisteredDomainTimeouts {
-    pub fn build(self) -> RegisteredDomainTimeouts {
-        RegisteredDomainTimeouts {
+impl BuildRegisteredDomain_Timeouts {
+    pub fn build(self) -> RegisteredDomain_Timeouts {
+        RegisteredDomain_Timeouts {
             create: core::default::Default::default(),
             delete: core::default::Default::default(),
             update: core::default::Default::default(),
@@ -676,21 +701,23 @@ impl BuildRegisteredDomainTimeouts {
     }
 }
 
-pub struct RegisteredDomainTimeoutsRef {
+#[allow(dead_code)]
+pub struct RegisteredDomain_TimeoutsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for RegisteredDomainTimeoutsRef {
-    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomainTimeoutsRef {
-        RegisteredDomainTimeoutsRef {
+impl terrars::Ref for RegisteredDomain_TimeoutsRef {
+    fn new(shared: terrars::StackShared, base: std::string::String) -> RegisteredDomain_TimeoutsRef {
+        RegisteredDomain_TimeoutsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl RegisteredDomainTimeoutsRef {
+impl RegisteredDomain_TimeoutsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }

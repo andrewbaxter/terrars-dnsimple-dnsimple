@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderDnsimple;
 
 #[derive(Serialize)]
-struct DataRegistrantChangeCheckData {
+struct DataRegistrantChangeCheckData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "terrars::SerdeSkipDefault::is_default")]
@@ -23,7 +25,7 @@ struct DataRegistrantChangeCheckData {
 struct DataRegistrantChangeCheck_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DataRegistrantChangeCheckData>,
+    data: std::cell::RefCell<DataRegistrantChangeCheckData_>,
 }
 
 #[derive(Clone)]
@@ -82,7 +84,7 @@ impl DataRegistrantChangeCheck {
 
     #[doc =
         "Get a reference to the value of field `extended_attributes` after provisioning.\nExtended attributes for the registrant change"]
-    pub fn extended_attributes(&self) -> terrars::ListRef<DataRegistrantChangeCheckExtendedAttributesElRef> {
+    pub fn extended_attributes(&self) -> terrars::ListRef<DataRegistrantChangeCheck_ExtendedAttributesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.extended_attributes", self.extract_ref()))
     }
 
@@ -142,7 +144,7 @@ impl BuildDataRegistrantChangeCheck {
         let out = DataRegistrantChangeCheck(std::rc::Rc::new(DataRegistrantChangeCheck_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DataRegistrantChangeCheckData {
+            data: std::cell::RefCell::new(DataRegistrantChangeCheckData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -193,7 +195,7 @@ impl DataRegistrantChangeCheckRef {
 
     #[doc =
         "Get a reference to the value of field `extended_attributes` after provisioning.\nExtended attributes for the registrant change"]
-    pub fn extended_attributes(&self) -> terrars::ListRef<DataRegistrantChangeCheckExtendedAttributesElRef> {
+    pub fn extended_attributes(&self) -> terrars::ListRef<DataRegistrantChangeCheck_ExtendedAttributesRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.extended_attributes", self.extract_ref()))
     }
 
@@ -210,7 +212,7 @@ impl DataRegistrantChangeCheckRef {
 }
 
 #[derive(Serialize)]
-pub struct DataRegistrantChangeCheckExtendedAttributesElOptionsEl {
+pub struct DataRegistrantChangeCheck_ExtendedAttributes_Options {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -219,7 +221,7 @@ pub struct DataRegistrantChangeCheckExtendedAttributesElOptionsEl {
     value: std::option::Option<terrars::PrimField<std::string::String>>,
 }
 
-impl DataRegistrantChangeCheckExtendedAttributesElOptionsEl {
+impl DataRegistrantChangeCheck_ExtendedAttributes_Options {
     #[doc = "Set the field `description`.\n"]
     pub fn set_description(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.description = std::option::Option::Some(v.into());
@@ -239,8 +241,8 @@ impl DataRegistrantChangeCheckExtendedAttributesElOptionsEl {
     }
 }
 
-impl terrars::ToListMappable for DataRegistrantChangeCheckExtendedAttributesElOptionsEl {
-    type O = terrars::BlockAssignable<DataRegistrantChangeCheckExtendedAttributesElOptionsEl>;
+impl terrars::ToListMappable for DataRegistrantChangeCheck_ExtendedAttributes_Options {
+    type O = terrars::BlockAssignable<DataRegistrantChangeCheck_ExtendedAttributes_Options>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -251,11 +253,11 @@ impl terrars::ToListMappable for DataRegistrantChangeCheckExtendedAttributesElOp
     }
 }
 
-pub struct BuildDataRegistrantChangeCheckExtendedAttributesElOptionsEl {}
+pub struct BuildDataRegistrantChangeCheck_ExtendedAttributes_Options {}
 
-impl BuildDataRegistrantChangeCheckExtendedAttributesElOptionsEl {
-    pub fn build(self) -> DataRegistrantChangeCheckExtendedAttributesElOptionsEl {
-        DataRegistrantChangeCheckExtendedAttributesElOptionsEl {
+impl BuildDataRegistrantChangeCheck_ExtendedAttributes_Options {
+    pub fn build(self) -> DataRegistrantChangeCheck_ExtendedAttributes_Options {
+        DataRegistrantChangeCheck_ExtendedAttributes_Options {
             description: core::default::Default::default(),
             title: core::default::Default::default(),
             value: core::default::Default::default(),
@@ -263,24 +265,26 @@ impl BuildDataRegistrantChangeCheckExtendedAttributesElOptionsEl {
     }
 }
 
-pub struct DataRegistrantChangeCheckExtendedAttributesElOptionsElRef {
+#[allow(dead_code)]
+pub struct DataRegistrantChangeCheck_ExtendedAttributes_OptionsRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataRegistrantChangeCheckExtendedAttributesElOptionsElRef {
+impl terrars::Ref for DataRegistrantChangeCheck_ExtendedAttributes_OptionsRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataRegistrantChangeCheckExtendedAttributesElOptionsElRef {
-        DataRegistrantChangeCheckExtendedAttributesElOptionsElRef {
+    ) -> DataRegistrantChangeCheck_ExtendedAttributes_OptionsRef {
+        DataRegistrantChangeCheck_ExtendedAttributes_OptionsRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataRegistrantChangeCheckExtendedAttributesElOptionsElRef {
+impl DataRegistrantChangeCheck_ExtendedAttributes_OptionsRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -302,18 +306,18 @@ impl DataRegistrantChangeCheckExtendedAttributesElOptionsElRef {
 }
 
 #[derive(Serialize)]
-pub struct DataRegistrantChangeCheckExtendedAttributesEl {
+pub struct DataRegistrantChangeCheck_ExtendedAttributes {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     description: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     name: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    options: std::option::Option<terrars::ListField<DataRegistrantChangeCheckExtendedAttributesElOptionsEl>>,
+    options: std::option::Option<terrars::ListField<DataRegistrantChangeCheck_ExtendedAttributes_Options>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     required: std::option::Option<terrars::PrimField<bool>>,
 }
 
-impl DataRegistrantChangeCheckExtendedAttributesEl {
+impl DataRegistrantChangeCheck_ExtendedAttributes {
     #[doc = "Set the field `description`.\n"]
     pub fn set_description(mut self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.description = std::option::Option::Some(v.into());
@@ -329,7 +333,7 @@ impl DataRegistrantChangeCheckExtendedAttributesEl {
     #[doc = "Set the field `options`.\n"]
     pub fn set_options(
         mut self,
-        v: impl std::convert::Into<terrars::ListField<DataRegistrantChangeCheckExtendedAttributesElOptionsEl>>,
+        v: impl std::convert::Into<terrars::ListField<DataRegistrantChangeCheck_ExtendedAttributes_Options>>,
     ) -> Self {
         self.options = std::option::Option::Some(v.into());
         self
@@ -342,8 +346,8 @@ impl DataRegistrantChangeCheckExtendedAttributesEl {
     }
 }
 
-impl terrars::ToListMappable for DataRegistrantChangeCheckExtendedAttributesEl {
-    type O = terrars::BlockAssignable<DataRegistrantChangeCheckExtendedAttributesEl>;
+impl terrars::ToListMappable for DataRegistrantChangeCheck_ExtendedAttributes {
+    type O = terrars::BlockAssignable<DataRegistrantChangeCheck_ExtendedAttributes>;
 
     fn do_map(self, base: std::string::String) -> Self::O {
         terrars::BlockAssignable::Dynamic(terrars::DynamicBlock {
@@ -354,11 +358,11 @@ impl terrars::ToListMappable for DataRegistrantChangeCheckExtendedAttributesEl {
     }
 }
 
-pub struct BuildDataRegistrantChangeCheckExtendedAttributesEl {}
+pub struct BuildDataRegistrantChangeCheck_ExtendedAttributes {}
 
-impl BuildDataRegistrantChangeCheckExtendedAttributesEl {
-    pub fn build(self) -> DataRegistrantChangeCheckExtendedAttributesEl {
-        DataRegistrantChangeCheckExtendedAttributesEl {
+impl BuildDataRegistrantChangeCheck_ExtendedAttributes {
+    pub fn build(self) -> DataRegistrantChangeCheck_ExtendedAttributes {
+        DataRegistrantChangeCheck_ExtendedAttributes {
             description: core::default::Default::default(),
             name: core::default::Default::default(),
             options: core::default::Default::default(),
@@ -367,24 +371,26 @@ impl BuildDataRegistrantChangeCheckExtendedAttributesEl {
     }
 }
 
-pub struct DataRegistrantChangeCheckExtendedAttributesElRef {
+#[allow(dead_code)]
+pub struct DataRegistrantChangeCheck_ExtendedAttributesRef {
     shared: terrars::StackShared,
     base: std::string::String,
 }
 
-impl terrars::Ref for DataRegistrantChangeCheckExtendedAttributesElRef {
+impl terrars::Ref for DataRegistrantChangeCheck_ExtendedAttributesRef {
     fn new(
         shared: terrars::StackShared,
         base: std::string::String,
-    ) -> DataRegistrantChangeCheckExtendedAttributesElRef {
-        DataRegistrantChangeCheckExtendedAttributesElRef {
+    ) -> DataRegistrantChangeCheck_ExtendedAttributesRef {
+        DataRegistrantChangeCheck_ExtendedAttributesRef {
             shared: shared,
             base: base.to_string(),
         }
     }
 }
 
-impl DataRegistrantChangeCheckExtendedAttributesElRef {
+impl DataRegistrantChangeCheck_ExtendedAttributesRef {
+    #[allow(dead_code)]
     fn shared(&self) -> &terrars::StackShared {
         &self.shared
     }
@@ -400,7 +406,7 @@ impl DataRegistrantChangeCheckExtendedAttributesElRef {
     }
 
     #[doc = "Get a reference to the value of field `options` after provisioning.\n"]
-    pub fn options(&self) -> terrars::ListRef<DataRegistrantChangeCheckExtendedAttributesElOptionsElRef> {
+    pub fn options(&self) -> terrars::ListRef<DataRegistrantChangeCheck_ExtendedAttributes_OptionsRef> {
         terrars::ListRef::new(self.shared().clone(), format!("{}.options", self.base))
     }
 

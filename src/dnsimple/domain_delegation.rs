@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderDnsimple;
 
 #[derive(Serialize)]
-struct DomainDelegationData {
+struct DomainDelegationData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -19,13 +21,13 @@ struct DomainDelegationData {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     provisioner: std::vec::Vec<terrars::Provisioner>,
     domain: terrars::PrimField<std::string::String>,
-    name_servers: terrars::ListField<terrars::PrimField<std::string::String>>,
+    name_servers: terrars::SetField<terrars::PrimField<std::string::String>>,
 }
 
 struct DomainDelegation_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<DomainDelegationData>,
+    data: std::cell::RefCell<DomainDelegationData_>,
 }
 
 #[derive(Clone)]
@@ -136,8 +138,8 @@ impl DomainDelegation {
     }
 
     #[doc = "Get a reference to the value of field `name_servers` after provisioning.\n"]
-    pub fn name_servers(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.name_servers", self.extract_ref()))
+    pub fn name_servers(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.name_servers", self.extract_ref()))
     }
 }
 
@@ -177,7 +179,7 @@ pub struct BuildDomainDelegation {
     #[doc = ""]
     pub domain: terrars::PrimField<std::string::String>,
     #[doc = ""]
-    pub name_servers: terrars::ListField<terrars::PrimField<std::string::String>>,
+    pub name_servers: terrars::SetField<terrars::PrimField<std::string::String>>,
 }
 
 impl BuildDomainDelegation {
@@ -185,7 +187,7 @@ impl BuildDomainDelegation {
         let out = DomainDelegation(std::rc::Rc::new(DomainDelegation_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(DomainDelegationData {
+            data: std::cell::RefCell::new(DomainDelegationData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),
@@ -234,7 +236,7 @@ impl DomainDelegationRef {
     }
 
     #[doc = "Get a reference to the value of field `name_servers` after provisioning.\n"]
-    pub fn name_servers(&self) -> terrars::ListRef<terrars::PrimExpr<std::string::String>> {
-        terrars::ListRef::new(self.shared().clone(), format!("{}.name_servers", self.extract_ref()))
+    pub fn name_servers(&self) -> terrars::SetRef<terrars::PrimExpr<std::string::String>> {
+        terrars::SetRef::new(self.shared().clone(), format!("{}.name_servers", self.extract_ref()))
     }
 }

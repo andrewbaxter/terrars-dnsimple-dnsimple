@@ -1,11 +1,15 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 
 #[derive(Serialize)]
-struct ProviderDnsimpleData {
+struct ProviderDnsimpleData_ {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     alias: std::option::Option<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     account: std::option::Option<terrars::PrimField<std::string::String>>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    debug_transport_file: std::option::Option<terrars::PrimField<std::string::String>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     prefetch: std::option::Option<terrars::PrimField<bool>>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -17,7 +21,7 @@ struct ProviderDnsimpleData {
 }
 
 struct ProviderDnsimple_ {
-    data: std::cell::RefCell<ProviderDnsimpleData>,
+    data: std::cell::RefCell<ProviderDnsimpleData_>,
 }
 
 pub struct ProviderDnsimple(std::rc::Rc<ProviderDnsimple_>);
@@ -40,6 +44,13 @@ impl ProviderDnsimple {
     #[doc = "Set the field `account`.\nThe account for API operations."]
     pub fn set_account(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
         self.0.data.borrow_mut().account = std::option::Option::Some(v.into());
+        self
+    }
+
+    #[doc =
+        "Set the field `debug_transport_file`.\nFile path to enable HTTP request/response debugging. When set, all HTTP requests and responses will be logged to this file."]
+    pub fn set_debug_transport_file(self, v: impl std::convert::Into<terrars::PrimField<std::string::String>>) -> Self {
+        self.0.data.borrow_mut().debug_transport_file = std::option::Option::Some(v.into());
         self
     }
 
@@ -77,7 +88,7 @@ impl terrars::Provider for ProviderDnsimple_ {
     fn extract_provider_type(&self) -> serde_json::Value {
         serde_json::json!({
             "source": "dnsimple/dnsimple",
-            "version": "1.3.1",
+            "version": "2.2.1",
         })
     }
 
@@ -91,14 +102,17 @@ pub struct BuildProviderDnsimple {}
 impl BuildProviderDnsimple {
     pub fn build(self, stack: &mut terrars::Stack) -> ProviderDnsimple {
         let out =
-            ProviderDnsimple(std::rc::Rc::new(ProviderDnsimple_ { data: std::cell::RefCell::new(ProviderDnsimpleData {
-                alias: std::option::Option::None,
-                account: core::default::Default::default(),
-                prefetch: core::default::Default::default(),
-                sandbox: core::default::Default::default(),
-                token: core::default::Default::default(),
-                user_agent: core::default::Default::default(),
-            }) }));
+            ProviderDnsimple(
+                std::rc::Rc::new(ProviderDnsimple_ { data: std::cell::RefCell::new(ProviderDnsimpleData_ {
+                    alias: std::option::Option::None,
+                    account: core::default::Default::default(),
+                    debug_transport_file: core::default::Default::default(),
+                    prefetch: core::default::Default::default(),
+                    sandbox: core::default::Default::default(),
+                    token: core::default::Default::default(),
+                    user_agent: core::default::Default::default(),
+                }) }),
+            );
         stack.add_provider(out.0.clone());
         out
     }

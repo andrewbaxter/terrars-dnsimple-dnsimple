@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderDnsimple;
 
 #[derive(Serialize)]
-struct EmailForwardData {
+struct EmailForwardData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -26,7 +28,7 @@ struct EmailForwardData {
 struct EmailForward_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<EmailForwardData>,
+    data: std::cell::RefCell<EmailForwardData_>,
 }
 
 #[derive(Clone)]
@@ -198,7 +200,7 @@ impl BuildEmailForward {
         let out = EmailForward(std::rc::Rc::new(EmailForward_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(EmailForwardData {
+            data: std::cell::RefCell::new(EmailForwardData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),

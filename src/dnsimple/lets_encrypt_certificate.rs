@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types)]
+
 use serde::Serialize;
 use terrars::{
     Referable as _,
@@ -7,7 +9,7 @@ use terrars::{
 use super::provider::ProviderDnsimple;
 
 #[derive(Serialize)]
-struct LetsEncryptCertificateData {
+struct LetsEncryptCertificateData_ {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     depends_on: std::vec::Vec<std::string::String>,
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -30,7 +32,7 @@ struct LetsEncryptCertificateData {
 struct LetsEncryptCertificate_ {
     shared: terrars::StackShared,
     tf_id: std::string::String,
-    data: std::cell::RefCell<LetsEncryptCertificateData>,
+    data: std::cell::RefCell<LetsEncryptCertificateData_>,
 }
 
 #[derive(Clone)]
@@ -257,7 +259,7 @@ impl BuildLetsEncryptCertificate {
         let out = LetsEncryptCertificate(std::rc::Rc::new(LetsEncryptCertificate_ {
             shared: stack.shared.clone(),
             tf_id: self.tf_id,
-            data: std::cell::RefCell::new(LetsEncryptCertificateData {
+            data: std::cell::RefCell::new(LetsEncryptCertificateData_ {
                 depends_on: core::default::Default::default(),
                 provider: std::option::Option::None,
                 lifecycle: core::default::Default::default(),

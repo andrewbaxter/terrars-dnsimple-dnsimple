@@ -1,3 +1,5 @@
+ 
+
 pub mod provider;
 
 pub use provider::*;
@@ -43,6 +45,12 @@ pub mod registered_domain;
 
 #[cfg(feature = "registered_domain")]
 pub use registered_domain::*;
+
+#[cfg(feature = "zone")]
+pub mod zone;
+
+#[cfg(feature = "zone")]
+pub use zone::*;
 
 #[cfg(feature = "zone_record")]
 pub mod zone_record;
